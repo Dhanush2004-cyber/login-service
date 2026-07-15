@@ -37,34 +37,34 @@ pipeline {
 
                                         execCommand: """
 
-set -e
+                                            set -e
 
-echo "Selected Branch : ${params.BRANCH}"
+                                            echo "Selected Branch : ${params.BRANCH}"
 
-echo "===== LOGIN SERVICE DEPLOYMENT STARTED ====="
+                                            echo "===== LOGIN SERVICE DEPLOYMENT STARTED ====="
 
-cd /home/master/project/microservices/login-service
+                                            cd /home/master/project/microservices/login-service
 
-git fetch origin
+                                            git fetch origin
 
-git checkout ${params.BRANCH}
+                                            git checkout ${params.BRANCH}
 
-git reset --hard origin/${params.BRANCH}
+                                            git reset --hard origin/${params.BRANCH}
 
-npm install
+                                            npm install
 
-if pm2 describe login-service > /dev/null 2>&1
-then
-    pm2 restart login-service
-else
-    pm2 start app.js --name login-service
-fi
+                                            if pm2 describe login-service > /dev/null 2>&1
+                                            then
+                                                pm2 restart login-service
+                                            else
+                                                pm2 start app.js --name login-service
+                                            fi
 
-pm2 save
+                                            pm2 save
 
-echo "===== LOGIN SERVICE DEPLOYED SUCCESSFULLY ====="
+                                            echo "===== LOGIN SERVICE DEPLOYED SUCCESSFULLY ====="
 
-"""
+                                            """
 
                                     )
 
