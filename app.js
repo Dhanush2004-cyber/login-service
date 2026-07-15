@@ -26,7 +26,7 @@ app.post("/api/login", (req, res) => {
             token: "sample-jwt-token",
             user: {
                 id: 1,
-                name: "Dhanush karthick",
+                name: "Dhanush karthick R",
                 role: "Admin"
             }
         });
