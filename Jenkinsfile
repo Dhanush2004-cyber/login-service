@@ -47,49 +47,28 @@ pipeline {
 
                                             echo "===== LOGIN SERVICE DEPLOYED SUCCESSFULLY ====="
                                         '''
-
                                     )
-
                                 ]
-
                             )
-
                         ]
-
                     )
-
                 }
-
             }
-
         }
-
     }
-
     post {
-
         success {
-
             echo "======================================"
             echo "Login Service Deployment Successful"
             echo "======================================"
-
         }
-
         failure {
-
             echo "======================================"
             echo "Login Service Deployment Failed"
             echo "======================================"
-
         }
-
         always {
-
             cleanWs()
-
         }
-
     }
-
 }
