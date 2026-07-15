@@ -15,7 +15,6 @@ pipeline {
 
     }
 
-
     stages {
 
         stage('Deploy Login Service') {
@@ -36,56 +35,79 @@ pipeline {
 
                                     sshTransfer(
 
-                                        execCommand: '''
-                                            set -e
+                                        execCommand: """
 
-                                            echo "Selected Branch : ${params.BRANCH}"
+set -e
 
-                                            echo "===== LOGIN SERVICE DEPLOYMENT STARTED ====="
+echo "Selected Branch : ${params.BRANCH}"
 
-                                            cd /home/master/project/microservices/login-service
+echo "===== LOGIN SERVICE DEPLOYMENT STARTED ====="
 
-                                            git fetch origin
+cd /home/master/project/microservices/login-service
 
-                                            git checkout ${params.BRANCH}
+git fetch origin
 
-                                            git reset --hard origin/${params.BRANCH}
+git checkout ${params.BRANCH}
 
-                                            npm install
+git reset --hard origin/${params.BRANCH}
 
-                                            if pm2 describe login-service > /dev/null 2>&1
-                                            then
-                                                pm2 restart login-service
-                                            else
-                                                pm2 start app.js --name login-service
-                                            fi
+npm install
 
-                                            pm2 save
+if pm2 describe login-service > /dev/null 2>&1
+then
+    pm2 restart login-service
+else
+    pm2 start app.js --name login-service
+fi
 
-                                            echo "===== LOGIN SERVICE DEPLOYED SUCCESSFULLY ====="
-                                        '''
+pm2 save
+
+echo "===== LOGIN SERVICE DEPLOYED SUCCESSFULLY ====="
+
+"""
+
                                     )
+
                                 ]
+
                             )
+
                         ]
+
                     )
+
                 }
+
             }
+
         }
+
     }
+
     post {
+
         success {
+
             echo "======================================"
             echo "Login Service Deployment Successful"
             echo "======================================"
+
         }
+
         failure {
+
             echo "======================================"
             echo "Login Service Deployment Failed"
             echo "======================================"
+
         }
+
         always {
+
             cleanWs()
+
         }
+
     }
+
 }
