@@ -2,6 +2,19 @@ pipeline {
 
     agent any
 
+    parameters {
+
+        choice(
+            name: 'BRANCH',
+            choices: [
+                'main',
+                'dev'
+            ],
+            description: 'Select the Git branch to deploy'
+        )
+
+    }
+
 
     stages {
 
