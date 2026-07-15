@@ -2,6 +2,19 @@ pipeline {
 
     agent any
 
+    parameters {
+
+        choice(
+            name: 'BRANCH',
+            choices: [
+                'main',
+                'dev'
+            ],
+            description: 'Select the Git branch to deploy'
+        )
+
+    }
+
 
     stages {
 
@@ -26,13 +39,17 @@ pipeline {
                                         execCommand: '''
                                             set -e
 
+                                            echo "Selected Branch : ${params.BRANCH}"
+
                                             echo "===== LOGIN SERVICE DEPLOYMENT STARTED ====="
 
                                             cd /home/master/project/microservices/login-service
 
                                             git fetch origin
 
-                                            git reset --hard origin/main
+                                            git checkout ${params.BRANCH}
+
+                                            git reset --hard origin/${params.BRANCH}
 
                                             npm install
 
