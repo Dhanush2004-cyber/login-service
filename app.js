@@ -27,7 +27,8 @@ app.post("/api/login", (req, res) => {
             user: {
                 id: 1,
                 name: "Dhanush karthick R",
-                role: "Admin"
+                role: "Admin",
+                branch: "main"
             }
         });
 
