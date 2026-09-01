@@ -15,6 +15,14 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        service: 'login-service',
+        status: 'UP',
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.post("/api/login", (req, res) => {
 
     const { username, password } = req.body;
